@@ -1,2 +1,6 @@
-# tensor-lab-145
-Ryan Vo | "CLI-Anything: Making ALL Software Agent-Native" -- CLI-Hub: https://clianything.cc/
+# tensor-lab-145 — Ryan Vo
+
+> Work in progress. This checkpoint may be incomplete or fail tests. See PLAN.md and STATUS.md before use.
+
+
+Maintainer: Ryan Vo <ryandtvo@gmail.com>
