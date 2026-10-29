@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "current_feature": "project-init",
+  "features": [
+    {
+      "id": "project-init",
+      "title": "Project initialization with FastAPI + React skeleton",
+      "status": "in_progress",
+      "acceptance": [
+        "FastAPI backend runs on port 8000",
+        "React frontend runs on port 3000",
+        "Health endpoint returns 200",
+        "Frontend can call backend API"
+      ],
+      "implementation": [],
+      "tests": []
+    },
+    {
+      "id": "cli-generation",
+      "title": "CLI generation from source code analysis",
+      "status": "planned",
+      "acceptance": [
+        "Parse target application source code",
+        "Generate CLI commands for discovered functions",
+        "Validate generated CLI executes correctly"
+      ],
+      "implementation": [],
+      "tests": []
+    },
+    {
+      "id": "code-analysis",
+      "title": "Source code analysis engine",
+      "status": "planned",
+      "acceptance": [
+        "Extract function signatures and types",
+        "Identify entry points and commands",
+        "Generate command metadata"
+      ],
+      "implementation": [],
+      "tests": []
+    }
+  ]
+}
