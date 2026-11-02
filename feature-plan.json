@@ -5,15 +5,25 @@
     {
       "id": "project-init",
       "title": "Project initialization with FastAPI + React skeleton",
-      "status": "in_progress",
+      "status": "done",
       "acceptance": [
         "FastAPI backend runs on port 8000",
         "React frontend runs on port 3000",
         "Health endpoint returns 200",
         "Frontend can call backend API"
       ],
-      "implementation": [],
-      "tests": []
+      "implementation": [
+        "backend/main.py",
+        "backend/requirements.txt",
+        "frontend/package.json",
+        "frontend/vite.config.js",
+        "frontend/index.html",
+        "frontend/src/main.jsx",
+        "frontend/src/App.jsx"
+      ],
+      "tests": [
+        "backend/test_health.py"
+      ]
     },
     {
       "id": "cli-generation",
