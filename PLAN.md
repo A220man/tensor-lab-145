@@ -10,13 +10,17 @@ project-init
 
 ### project-init — Project initialization with FastAPI + React skeleton
 
-Status: in_progress
+Status: done
 
 Acceptance:
 - FastAPI backend runs on port 8000
 - React frontend runs on port 3000
 - Health endpoint returns 200
 - Frontend can call backend API
+
+Implementation: `backend/main.py`, `backend/requirements.txt`, `frontend/package.json`, `frontend/vite.config.js`, `frontend/index.html`, `frontend/src/main.jsx`, `frontend/src/App.jsx`
+
+Tests: `backend/test_health.py`
 
 ### cli-generation — CLI generation from source code analysis
 
