@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "current_feature": "project-init",
+  "current_feature": "code-analysis",
   "features": [
     {
       "id": "project-init",
@@ -26,6 +26,23 @@
       ]
     },
     {
+      "id": "code-analysis",
+      "title": "Source code analysis engine",
+      "status": "in_progress",
+      "acceptance": [
+        "Extract function signatures and types",
+        "Identify entry points and commands",
+        "Generate command metadata"
+      ],
+      "implementation": [
+        "backend/main.py",
+        "frontend/src/App.jsx"
+      ],
+      "tests": [
+        "backend/test_health.py"
+      ]
+    },
+    {
       "id": "cli-generation",
       "title": "CLI generation from source code analysis",
       "status": "planned",
@@ -33,18 +50,6 @@
         "Parse target application source code",
         "Generate CLI commands for discovered functions",
         "Validate generated CLI executes correctly"
-      ],
-      "implementation": [],
-      "tests": []
-    },
-    {
-      "id": "code-analysis",
-      "title": "Source code analysis engine",
-      "status": "planned",
-      "acceptance": [
-        "Extract function signatures and types",
-        "Identify entry points and commands",
-        "Generate command metadata"
       ],
       "implementation": [],
       "tests": []

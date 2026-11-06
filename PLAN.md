@@ -4,7 +4,7 @@ Each round completes one feature or repair. Future items are planned, not implem
 
 ## Current round
 
-project-init
+code-analysis
 
 ## Roadmap
 
@@ -22,6 +22,19 @@ Implementation: `backend/main.py`, `backend/requirements.txt`, `frontend/package
 
 Tests: `backend/test_health.py`
 
+### code-analysis — Source code analysis engine
+
+Status: in_progress
+
+Acceptance:
+- Extract function signatures and types
+- Identify entry points and commands
+- Generate command metadata
+
+Implementation: `backend/main.py`, `frontend/src/App.jsx`
+
+Tests: `backend/test_health.py`
+
 ### cli-generation — CLI generation from source code analysis
 
 Status: planned
@@ -30,13 +43,4 @@ Acceptance:
 - Parse target application source code
 - Generate CLI commands for discovered functions
 - Validate generated CLI executes correctly
-
-### code-analysis — Source code analysis engine
-
-Status: planned
-
-Acceptance:
-- Extract function signatures and types
-- Identify entry points and commands
-- Generate command metadata
 
