@@ -24,7 +24,7 @@ Tests: `backend/test_health.py`
 
 ### code-analysis — Source code analysis engine
 
-Status: in_progress
+Status: done
 
 Acceptance:
 - Extract function signatures and types
