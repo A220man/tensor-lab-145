@@ -122,7 +122,7 @@ def analyze_python_file(file_path: str) -> dict:
             # Check for entry points (if __name__ == "__main__", CLI decorators, etc.)
             is_entry = (
                 node.name == "main" or
-                has_cli_decorator or
+                has_cli_decorator
                 (node.decorator_list and any(
                     isinstance(d, ast.Name) and d.id in ("click.command", "typer.run", "argparse.ArgumentParser")
                     for d in node.decorator_list
