@@ -120,16 +120,7 @@ def analyze_python_file(file_path: str) -> dict:
             functions.append(func_info)
 
             # Check for entry points (if __name__ == "__main__", CLI decorators, etc.)
-            is_entry = (
-                node.name == "main" or
-                has_cli_decorator
-                (node.decorator_list and any(
-                    isinstance(d, ast.Name) and d.id in ("click.command", "typer.run", "argparse.ArgumentParser")
-                    for d in node.decorator_list
-                ))
-            )
-            if is_entry:
-                entry_points.append(func_info)
+            is_entry = node.name == "main" or has_cli_decorator
 
         elif isinstance(node, ast.ClassDef):
             class_info = {
@@ -279,3 +270,4 @@ async def analyze(request: AnalyzeRequest):
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
