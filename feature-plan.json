@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "current_feature": "code-analysis",
+  "current_feature": "cli-generation",
   "features": [
     {
       "id": "project-init",
@@ -45,14 +45,18 @@
     {
       "id": "cli-generation",
       "title": "CLI generation from source code analysis",
-      "status": "planned",
+      "status": "in_progress",
       "acceptance": [
         "Parse target application source code",
         "Generate CLI commands for discovered functions",
         "Validate generated CLI executes correctly"
       ],
-      "implementation": [],
-      "tests": []
+      "implementation": [
+        "backend/main.py"
+      ],
+      "tests": [
+        "backend/test_health.py"
+      ]
     }
   ]
 }
