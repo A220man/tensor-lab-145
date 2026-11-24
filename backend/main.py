@@ -71,6 +71,43 @@ def get_decorator_name(decorator: ast.AST) -> Optional[str]:
         return get_decorator_name(decorator.func)
     return None
 
+def is_click_option_decorator(decorator: ast.AST) -> bool:
+    """Check if a decorator is a @click.option decorator."""
+    # Handle ast.Attribute (e.g., @click.option, @option)
+    if isinstance(decorator, ast.Attribute):
+        if decorator.attr == "option":
+            if isinstance(decorator.value, ast.Name):
+                return decorator.value.id == "click"
+            # Also handle bare @option
+            return True
+    # Handle ast.Name (e.g., @option)
+    if isinstance(decorator, ast.Name):
+        return decorator.id == "option"
+    # Handle ast.Call (e.g., @click.option(), @option())
+    if isinstance(decorator, ast.Call):
+        return is_click_option_decorator(decorator.func)
+    return False
+
+
+def get_click_option_name(decorator: ast.AST) -> Optional[str]:
+    """Get the option name from a @click.option decorator."""
+    if isinstance(decorator, ast.Attribute):
+        if decorator.attr == "option":
+            if isinstance(decorator.value, ast.Name) and decorator.value.id == "click":
+                if isinstance(decorator, ast.Call) and decorator.args:
+                    for arg in decorator.args:
+                        if isinstance(arg, ast.Constant) and isinstance(arg.value, str):
+                            return arg.value
+                for kw in decorator.kw or []:
+                    if isinstance(kw, ast.keyword) and isinstance(kw.value, ast.Constant) and isinstance(kw.value.value, str):
+                        return kw.value.value
+            return None
+    if isinstance(decorator, ast.Name):
+        return None
+    if isinstance(decorator, ast.Call):
+        return get_click_option_name(decorator.func)
+    return None
+
 
 def analyze_python_file(file_path: str) -> dict:
     """Analyze a Python file and extract functions, classes, and entry points."""
@@ -105,7 +142,7 @@ def analyze_python_file(file_path: str) -> dict:
                     pass
 
             decorators = [get_decorator_name(d) for d in node.decorator_list]
-            has_cli_decorator = any(is_cli_decorator(d) for d in node.decorator_list)
+            has_cli_decorator = any(is_cli_decorator(d) or is_click_option_decorator(d) for d in node.decorator_list)
 
             func_info = {
                 "name": node.name,
@@ -219,10 +256,17 @@ def analyze_source_path(source_path: str, language: str = None) -> dict:
         elif func.get("has_cli_decorator"):
             cmd_key = func["name"]
             if cmd_key not in seen_commands:
+                # Include click.option parameters if present
+                option_params = []
+                for arg in func.get("args", []):
+                    # Check if arg name suggests it's a click option
+                    arg_name = arg.get("name", "")
+                    if arg_name in ["option", "--option"] or arg_name.startswith("--"):
+                        option_params.append(arg)
                 commands.append({
                     "name": func["name"],
                     "description": func.get("docstring", ""),
-                    "parameters": func.get("args", []),
+                    "parameters": func.get("args", []) + option_params,
                     "source": "cli_decorator",
                 })
                 seen_commands.add(cmd_key)

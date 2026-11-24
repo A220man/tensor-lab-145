@@ -4,7 +4,7 @@ Each round completes one feature or repair. Future items are planned, not implem
 
 ## Current round
 
-code-analysis
+cli-generation
 
 ## Roadmap
 
@@ -37,10 +37,14 @@ Tests: `backend/test_health.py`
 
 ### cli-generation — CLI generation from source code analysis
 
-Status: planned
+Status: in_progress
 
 Acceptance:
 - Parse target application source code
 - Generate CLI commands for discovered functions
 - Validate generated CLI executes correctly
+
+Implementation: `backend/main.py`
+
+Tests: `backend/test_health.py`
 
