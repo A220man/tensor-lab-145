@@ -1,6 +1,18 @@
 # Changelog
 
+## 1.7.0 — work-in-progress checkpoint
+
+Partial code published for continued development. Known issues: STATUS.md.
+
 ## 1.6.0 — work-in-progress checkpoint
+
+
+## 1.6.1 — CLI generation fix
+
+- Fixed `get_click_option_name()` to properly handle `@click.option` decorators without parentheses
+- Added support for extracting option names from `@click.option("--name")` and `@option("--name")` decorators
+- Updated `analyze_python_file()` to include click option parameters in generated CLI commands
+- All existing tests pass (2/2)
 
 Partial code published for continued development. Known issues: STATUS.md.
 

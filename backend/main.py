@@ -91,21 +91,43 @@ def is_click_option_decorator(decorator: ast.AST) -> bool:
 
 def get_click_option_name(decorator: ast.AST) -> Optional[str]:
     """Get the option name from a @click.option decorator."""
+    # Handle ast.Attribute (e.g., @click.option without ())
     if isinstance(decorator, ast.Attribute):
         if decorator.attr == "option":
             if isinstance(decorator.value, ast.Name) and decorator.value.id == "click":
-                if isinstance(decorator, ast.Call) and decorator.args:
-                    for arg in decorator.args:
-                        if isinstance(arg, ast.Constant) and isinstance(arg.value, str):
-                            return arg.value
-                for kw in decorator.kw or []:
-                    if isinstance(kw, ast.keyword) and isinstance(kw.value, ast.Constant) and isinstance(kw.value.value, str):
-                        return kw.value.value
+                # Extract from args if this is actually a Call wrapped as Attribute (unusual)
+                # or from the decorator structure
+                # For @click.option alone: no args, return None
+                # For @click.option("--name"): would be Call, handled below
+                return None
+            # Handle bare @option (not under click.)
+            if decorator.attr == "option" and not isinstance(decorator.value, ast.Name):
+                return None
             return None
+    # Handle ast.Call (e.g., @click.option(), @click.option("--name"))
+    if isinstance(decorator, ast.Call):
+        # Check if func is click.option
+        if isinstance(decorator.func, ast.Attribute):
+            if decorator.func.attr == "option":
+                if isinstance(decorator.func.value, ast.Name) and decorator.func.value.id == "click":
+                    # Option name is the first positional arg, e.g., "--name"
+                    if decorator.args:
+                        for arg in decorator.args:
+                            if isinstance(arg, ast.Constant) and isinstance(arg.value, str):
+                                name = arg.value.lstrip("-")
+                                if name:
+                                    return name
+                    # Also check keywords for option-like names (but skip reserved words)
+                    for kw in decorator.kw or []:
+                        if isinstance(kw, ast.keyword) and isinstance(kw.value, ast.Constant) and isinstance(kw.value.value, str):
+                            kw_value = kw.value.value.lstrip("-")
+                            if kw_value and kw_value not in ("default", "help", "type", "count", "cls", "self"):
+                                return kw_value
+                    return None
+        # Recurse into func for nested decorators
+        return get_click_option_name(decorator.func)
     if isinstance(decorator, ast.Name):
         return None
-    if isinstance(decorator, ast.Call):
-        return get_click_option_name(decorator.func)
     return None
 
 

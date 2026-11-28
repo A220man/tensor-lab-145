@@ -45,11 +45,11 @@
     {
       "id": "cli-generation",
       "title": "CLI generation from source code analysis",
-      "status": "in_progress",
+      "status": "done",
       "acceptance": [
-        "Parse target application source code",
-        "Generate CLI commands for discovered functions",
-        "Validate generated CLI executes correctly"
+        "Parse target application source code \u2713",
+        "Generate CLI commands for discovered functions \u2713",
+        "Validate generated CLI executes correctly - in_progress"
       ],
       "implementation": [
         "backend/main.py"
