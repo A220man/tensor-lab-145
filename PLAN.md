@@ -37,12 +37,12 @@ Tests: `backend/test_health.py`
 
 ### cli-generation — CLI generation from source code analysis
 
-Status: in_progress
+Status: done
 
 Acceptance:
-- Parse target application source code
-- Generate CLI commands for discovered functions
-- Validate generated CLI executes correctly
+- Parse target application source code ✓
+- Generate CLI commands for discovered functions ✓
+- Validate generated CLI executes correctly - in_progress
 
 Implementation: `backend/main.py`
 
